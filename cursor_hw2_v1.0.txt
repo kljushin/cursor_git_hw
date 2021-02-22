@@ -1,0 +1,447 @@
+1. Create a folder called cursor_git_hw
+
+
+
+klush@klush-linux:~$ mkdir cursor_git_hw
+
+
+
+2. cd into the cursor_git_hw folder.
+
+
+klush@klush-linux:~$ cd cursor_git_hw/
+
+
+
+3. Create a file called first.txt.
+
+
+
+klush@klush-linux:~/cursor_git_hw$ touch first.txt
+klush@klush-linux:~/cursor_git_hw$ ls
+first.txt
+
+
+
+4. Add first.txt to the staging area.
+
+
+
+klush@klush-linux:~/cursor_git_hw$ git add first.txt 
+klush@klush-linux:~/cursor_git_hw$ git status
+On branch master
+
+No commits yet
+
+Changes to be committed:
+  (use "git rm --cached <file>..." to unstage)
+	new file:   first.txt
+
+
+
+
+5. Commit with the message "adding first.txt".
+
+
+
+klush@klush-linux:~/cursor_git_hw$ git commit -m "adding first.txt"
+[master (root-commit) 89b45f4] adding first.txt
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+ create mode 100644 first.txt
+
+
+
+
+6. Check out your commit with git log.
+
+
+
+klush@klush-linux:~/cursor_git_hw$ git log
+commit 89b45f4d2b6bf1cd500ad23daf1bff979c22a4f0 (HEAD -> master)
+Author: Boris Kliushyn <kljushin@gmail.com>
+Date:   Mon Feb 22 15:17:20 2021 +0200
+
+    adding first.txt
+
+
+
+
+7. Create another file called second.txt.
+
+
+
+klush@klush-linux:~/cursor_git_hw$ touch second.txt
+
+
+
+8. Add second.txt to the staging area.
+
+
+klush@klush-linux:~/cursor_git_hw$ git add second.txt
+
+
+
+9. Commit with the message "adding second.txt"
+
+
+
+klush@klush-linux:~/cursor_git_hw$ git commit -m "adding second.txt"
+[master 8829303] adding second.txt
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+ create mode 100644 second.txt
+
+
+
+
+10. Remove the first.txt file
+
+
+
+klush@klush-linux:~/cursor_git_hw$ rm first.txt 
+klush@klush-linux:~/cursor_git_hw$ ls
+second.txt
+
+
+
+
+11. Add this change to the staging area
+
+
+
+klush@klush-linux:~/cursor_git_hw$ git add .
+
+
+
+12. Commit with the message "removing first.txt"
+
+
+klush@klush-linux:~/cursor_git_hw$ git commit -m "removing first.txt"
+[master 26d01d6] removing first.txt
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+ delete mode 100644 first.txt
+
+
+
+13. Check out your commits using git log
+
+
+
+lush@klush-linux:~/cursor_git_hw$ git log
+commit 26d01d6bc188fc5a7f6372479839acf6c3e344ee (HEAD -> master)
+Author: Boris Kliushyn <kljushin@gmail.com>
+Date:   Mon Feb 22 15:21:57 2021 +0200
+
+    removing first.txt
+
+commit 8829303188bf26a704712cc2ff20ebca993df4ad
+Author: Boris Kliushyn <kljushin@gmail.com>
+Date:   Mon Feb 22 15:20:14 2021 +0200
+
+    adding second.txt
+
+commit 89b45f4d2b6bf1cd500ad23daf1bff979c22a4f0
+Author: Boris Kliushyn <kljushin@gmail.com>
+Date:   Mon Feb 22 15:17:20 2021 +0200
+
+    adding first.txt
+
+
+
+14. Push your changes to remote
+
+
+
+klush@klush-linux:~/cursor_git_hw$ git remote add origin git@github.com:kljushin/cursor_git_hw.git
+klush@klush-linux:~/cursor_git_hw$ git push -u origin master
+Enumerating objects: 7, done.
+Counting objects: 100% (7/7), done.
+Delta compression using up to 8 threads
+Compressing objects: 100% (4/4), done.
+Writing objects: 100% (7/7), 654 bytes | 327.00 KiB/s, done.
+Total 7 (delta 0), reused 0 (delta 0)
+To github.com:kljushin/cursor_git_hw.git
+ * [new branch]      master -> master
+Branch 'master' set up to track remote branch 'master' from 'origin'
+
+
+
+15. Create new branch from master called `first` (without checkouting)
+
+
+
+kklush@klush-linux:~/cursor_git_hw$ git branch
+* master
+klush@klush-linux:~/cursor_git_hw$ git branch first
+klush@klush-linux:~/cursor_git_hw$ git branch
+  first
+* master
+
+
+
+16. Create one more branchgit from master called `second` (with checkouting to it)
+
+
+
+klush@klush-linux:~/cursor_git_hw$ git checkout -b second
+Switched to a new branch 'second'
+
+klush@klush-linux:~/cursor_git_hw$ git branch
+  first
+  master
+* second
+
+
+
+17. Change the second.txt file with "Hello" string.
+
+
+
+klush@klush-linux:~/cursor_git_hw$ echo "Hello" > second.txt 
+klush@klush-linux:~/cursor_git_hw$ cat second.txt 
+Hello
+
+
+
+18. Stash you changes and checkout to first branch.
+
+
+
+klush@klush-linux:~/cursor_git_hw$ git stash
+Saved working directory and index state WIP on second: 26d01d6 removing first.txt
+
+klush@klush-linux:~/cursor_git_hw$ git checkout first 
+Switched to branch 'first'
+
+klush@klush-linux:~/cursor_git_hw$ git branch
+* first
+  master
+  second
+
+
+
+19. Checkout back and Stash Pop the changes.
+
+
+
+kklush@klush-linux:~/cursor_git_hw$ git checkout second 
+Switched to branch 'second'
+
+klush@klush-linux:~/cursor_git_hw$ git stash pop
+On branch second
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+	modified:   second.txt
+
+no changes added to commit (use "git add" and/or "git commit -a")
+Dropped refs/stash@{0} (ee86fc15781f43d5f27fd12536a998516c54b25b)
+
+klush@klush-linux:~/cursor_git_hw$ cat second.txt 
+Hello
+
+
+
+20. Add your changes to the staging area
+
+
+
+klush@klush-linux:~/cursor_git_hw$ git add second.txt
+
+
+
+
+21. Commit with the message "Changing second.txt".
+
+
+
+klush@klush-linux:~/cursor_git_hw$ git commit -m "Changing second.txt"
+[second 0f3103b] Changing second.txt
+ 1 file changed, 1 insertion(+)
+ 
+ 
+ 
+22. Push your changes to remote
+
+
+
+klush@klush-linux:~/cursor_git_hw$ git push origin second 
+Enumerating objects: 5, done.
+Counting objects: 100% (5/5), done.
+Writing objects: 100% (3/3), 261 bytes | 261.00 KiB/s, done.
+Total 3 (delta 0), reused 0 (delta 0)
+remote: 
+remote: Create a pull request for 'second' on GitHub by visiting:
+remote:      https://github.com/kljushin/cursor_git_hw/pull/new/second
+remote: 
+To github.com:kljushin/cursor_git_hw.git
+ * [new branch]      second -> second
+
+
+
+
+23. Checkout to first branch.
+
+
+
+klush@klush-linux:~/cursor_git_hw$ git checkout first
+Switched to branch 'first'
+
+klush@klush-linux:~/cursor_git_hw$ git branch
+* first
+  master
+  second
+
+
+
+24. Change the second.txt file with "Cursor" string.
+
+
+
+klush@klush-linux:~/cursor_git_hw$ cat second.txt 
+klush@klush-linux:~/cursor_git_hw$ echo "Cursor" > second.txt 
+klush@klush-linux:~/cursor_git_hw$ cat second.txt 
+Cursor
+
+
+
+25. Add your changes to the staging area
+
+
+
+klush@klush-linux:~/cursor_git_hw$ git add second.txt 
+klush@klush-linux:~/cursor_git_hw$ git status
+On branch first
+Changes to be committed:
+  (use "git restore --staged <file>..." to unstage)
+	modified:   second.txt
+
+
+
+26. Commit with the message "Changing second.txt".
+
+
+
+klush@klush-linux:~/cursor_git_hw$ git commit -m "Changing second.txt"
+[first dca1da2] Changing second.txt
+ 1 file changed, 1 insertion(+)
+
+
+
+27. Push your changes to remote
+
+
+
+klush@klush-linux:~/cursor_git_hw$ git push origin first
+Enumerating objects: 5, done.
+Counting objects: 100% (5/5), done.
+Writing objects: 100% (3/3), 263 bytes | 263.00 KiB/s, done.
+Total 3 (delta 0), reused 0 (delta 0)
+remote: 
+remote: Create a pull request for 'first' on GitHub by visiting:
+remote:      https://github.com/kljushin/cursor_git_hw/pull/new/first
+remote: 
+To github.com:kljushin/cursor_git_hw.git
+ * [new branch]      first -> first
+
+
+
+28. Checkout to master branch
+
+
+
+
+kklush@klush-linux:~/cursor_git_hw$ git checkout master 
+Switched to branch 'master'
+Your branch is up to date with 'origin/master'.
+
+klush@klush-linux:~/cursor_git_hw$ git branch
+  first
+* master
+  second
+
+
+
+29*. Merge the changes from second branch
+
+
+
+klush@klush-linux:~/cursor_git_hw$ ls
+second.txt
+
+klush@klush-linux:~/cursor_git_hw$ cat second.txt 
+
+klush@klush-linux:~/cursor_git_hw$ git merge second 
+Updating 26d01d6..0f3103b
+Fast-forward
+ second.txt | 1 +
+ 1 file changed, 1 insertion(+)
+
+klush@klush-linux:~/cursor_git_hw$ cat second.txt 
+Hello
+
+
+
+30*. Then merge the changes from first branch
+
+
+
+klush@klush-linux:~/cursor_git_hw$ git merge first 
+Auto-merging second.txt
+CONFLICT (content): Merge conflict in second.txt
+Automatic merge failed; fix conflicts and then commit the result.
+
+
+
+
+31*. Resolve conflict and push the changes to remote
+
+
+
+klush@klush-linux:~/cursor_git_hw$ git status
+On branch master
+Your branch is ahead of 'origin/master' by 1 commit.
+  (use "git push" to publish your local commits)
+
+You have unmerged paths.
+  (fix conflicts and run "git commit")
+  (use "git merge --abort" to abort the merge)
+
+Unmerged paths:
+  (use "git add <file>..." to mark resolution)
+	both modified:   second.txt
+
+no changes added to commit (use "git add" and/or "git commit -a")
+klush@klush-linux:~/cursor_git_hw$ cat second.txt 
+<<<<<<< HEAD
+Hello
+=======
+Cursor
+>>>>>>> first
+
+
+OK, editing conflict file
+
+
+klush@klush-linux:~/cursor_git_hw$ geany second.txt
+ 
+klush@klush-linux:~/cursor_git_hw$ cat second.txt 
+Hello
+and
+Cursor
+
+klush@klush-linux:~/cursor_git_hw$ git add second.txt 
+
+klush@klush-linux:~/cursor_git_hw$ git commit -m "merged and resolved the conflict in second.txt"
+[master 26d61bf] merged and resolved the conflict in second.txt
+
+klush@klush-linux:~/cursor_git_hw$ git push origin master
+Enumerating objects: 7, done.
+Counting objects: 100% (7/7), done.
+Writing objects: 100% (3/3), 317 bytes | 317.00 KiB/s, done.
+Total 3 (delta 0), reused 0 (delta 0)
+To github.com:kljushin/cursor_git_hw.git
+   26d01d6..26d61bf  master -> master
+
+
+
+
